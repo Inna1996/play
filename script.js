@@ -1,15 +1,10 @@
-const container = document.getElementById('container-background');
-const wrapperOfContent = document.querySelector('.wrapper');
-const buttonStart = document.getElementById('button-start');
-const nav = document.getElementById('navi');
-const levelParent = document.querySelector('.level');
-const length = levelParent.children.length;
-const level = {
-  sipmle: document.getElementById('level-easy'),
-  normal: document.getElementById('level-normal'),
-  hard: document.getElementById('level-hard'),
-};
-const levels = document.querySelectorAll('.level__label');
+const container = document.getElementById('container-background'),
+  wrapperOfContent = document.querySelector('.wrapper'),
+  buttonStart = document.getElementById('button-start'),
+  nav = document.getElementById('navi'),
+  levelParent = document.querySelector('.level'),
+  length = levelParent.children.length,
+  levels = document.querySelectorAll('.level__label');
 
 function playGame() {
   wrapperOfContent.classList.add('hide');
@@ -33,41 +28,29 @@ function playGame() {
         cards.classList.add('cardBack');
         cards.src = './img/backSide.png';
         cardswrapper.appendChild(cards);
-
       }
     }
     creatFeld(num);
   }
-  let attrib;
 
   function startGame() {
-    if (level.sipmle.checked) {
-      attrib = level.sipmle.getAttribute('data-ratio');
-      // level.normal = false;
-      // level.hard = false;
-      goToPlay(attrib);
-    } else if (level.normal.checked) {
-      attrib = level.normal.getAttribute('data-ratio');
-      // level.sipmle = false;
-      // level.hard = false;
+    let current = document.querySelector(".level__checked").getAttribute("id");
+    let number;
+    if (current == 'level-simple') {
+      number = 3;
+      goToPlay(3);
+    } else if (current == 'level-middle') {
+      number = 6;
       wrapper.classList.add('cardsFeld_6');
-      goToPlay(attrib);
-    } else if (level.hard.checked) {
-      attrib = level.hard.getAttribute('data-ratio');
-      // level.sipmle = false;
-      // level.normal = false;
-      goToPlay(attrib);
-    } else if (!level.sipmle.checked && !level.normal.checked && !level.hard.checked) {
-      attrib = level.sipmle.getAttribute('data-ratio');
-      // level.normal = false;
-      // level.hard = false;
-      goToPlay(attrib);
+      goToPlay(6);
+    } else if (current == 'level-difik') {
+      number = 10;
+      goToPlay(10);
     }
 
-
     const allCards = document.querySelectorAll('.card-wrapper');
-    const random = Math.floor(Math.random() * attrib);
-    for (let i = 0; i < attrib; i++) {
+    const random = Math.floor(Math.random() * number);
+    for (let i = 0; i < number; i++) {
       if (i == random) {
         allCards[i].firstElementChild.src = './img/winner.png';
       }
@@ -78,8 +61,10 @@ function playGame() {
       wrapper.innerHTML = '';
       wrapperOfContent.classList.add('show');
       container.classList.remove('container_style');
+      wrapper.classList.remove('cardsFeld_6');
       playGame.remove;
     }
+
     allCards.forEach(card => {
       card.addEventListener('click', function turnOver() {
         this.classList.add('click');
@@ -88,9 +73,7 @@ function playGame() {
         });
       });
     });
-
   }
-
   startGame();
 }
 
@@ -106,6 +89,7 @@ function showActive(i = 0) {
   levelParent.children[i].classList.remove('hide');
 
 }
+
 showActive();
 
 levelParent.addEventListener('click', function (event) {
