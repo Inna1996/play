@@ -1,4 +1,4 @@
-# **Game**
+# **Game "Find a bag"**
 
 The published version of the project can be seen here:'https://inna1996.github.io/-inna1996-Bag.github.io/'
 
